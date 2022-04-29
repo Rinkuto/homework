@@ -51,6 +51,8 @@
 <body>
 <%
 
+
+
     String name = request.getParameter("name"),str;
     String path = request.getServletContext().getRealPath("download") + "\\" + name;
     String suffix = name.substring(name.lastIndexOf("."));
