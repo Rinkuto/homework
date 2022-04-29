@@ -52,7 +52,7 @@
     String name = request.getParameter("name"),str;
     String path = request.getServletContext().getRealPath("download") + "\\" + name;
     String suffix = name.substring(name.lastIndexOf("."));
-    if (suffix.equals(".txt") || suffix.equals(".cpp") || suffix.equals(".epub")) {
+    if (suffix.equals(".txt") || suffix.equals(".cpp")) {
         FileInputStream in = new FileInputStream(new File(path));
         InputStreamReader read = new InputStreamReader(in, StandardCharsets.UTF_8);
         BufferedReader bin = new BufferedReader(read);
@@ -67,7 +67,7 @@
     } else if (suffix.equals(".jpg") || suffix.equals(".png") || suffix.equals(".jpeg") || suffix.equals(".jfif") || suffix.equals(".pdf")) { %>
         <img src="download/<%=name%>" alt="">
     <% } else {
-    request.setAttribute("message", "查看失败");
+    request.setAttribute("message", "不允许查看" + suffix + "文件");
     request.getServletContext().getRequestDispatcher("/message.jsp").forward(request, response);
     }%>
 </body>

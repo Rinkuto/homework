@@ -16,7 +16,7 @@ public class upload extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    private static final int MAX_FILE_SIZE = 1024 * 1024 * 20; // 20MB
+    private static final int MAX_FILE_SIZE = 1024 * 1024 * 50; // 20MB
 
     protected String newname(String path) {
         File f = new File(path);
