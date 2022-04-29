@@ -18,13 +18,12 @@
 <body>
 <%
 
-    String path = request.getServletContext().getRealPath("download") + "\\" + request.getParameter("name");
     String name = request.getParameter("name");
+    String path = request.getServletContext().getRealPath("download") + "\\" + name;
     name = URLEncoder.encode(name, StandardCharsets.UTF_8);
     response.addHeader("Content-Disposition", "attachment;filename=" + name);
 
     try (OutputStream os = response.getOutputStream(); FileInputStream in = new FileInputStream(path)) {
-
         byte[] b = new byte[1024];
         int i;
 
