@@ -13,7 +13,7 @@
 <body>
 <%
 
-    String path = request.getServletContext().getRealPath("download") + "\\" + request.getParameter("name");
+    String path = request.getServletContext().getRealPath("download") + File.separator + request.getParameter("name");
     File file = new File(path);
     if (file.delete()) {
         request.setAttribute("message", "删除成功");

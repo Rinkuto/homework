@@ -36,7 +36,7 @@ public class upload extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String saveDirectory = req.getServletContext().getRealPath("temporarily");//服务器上存储路径
+        String saveDirectory = req.getServletContext().getRealPath("/");//服务器上存储路径
         MultipartRequest multi = new MultipartRequest(req, saveDirectory, MAX_FILE_SIZE, "UTF-8");
         Enumeration efs = multi.getFileNames();
 

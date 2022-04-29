@@ -12,7 +12,6 @@
     response.setHeader("Pragma","No-cache");
     response.setHeader("Cache-Control","no-cache");
     response.setDateHeader("Expires", 0);
-
     String path = request.getServletContext().getRealPath("download");
     File f = new File(path);
     File[] listFiles = new File(path).listFiles();
