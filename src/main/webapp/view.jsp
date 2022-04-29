@@ -67,6 +67,7 @@
                 </div>
         </div> <%
     fin.close();
+
     } else if (suffix.equals(".jpg") || suffix.equals(".png") || suffix.equals(".jpeg") || suffix.equals(".jfif")) { %>
         <img src="download/<%=name%>" alt="">
     <% } else {
