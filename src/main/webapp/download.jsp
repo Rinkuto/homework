@@ -2,7 +2,6 @@
 <%@ page import="java.io.FileInputStream" %>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.nio.charset.StandardCharsets" %>
-<%@ page import="java.io.File" %>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%--
   Created by IntelliJ IDEA.
@@ -20,7 +19,7 @@
 <%
 
     String name = request.getParameter("name");
-    String path = request.getServletContext().getRealPath("download") + File.separator + name;
+    String path = request.getServletContext().getRealPath("download") + "\\" + name;
     name = URLEncoder.encode(name, StandardCharsets.UTF_8);
     response.addHeader("Content-Disposition", "attachment;filename=" + name);
 
