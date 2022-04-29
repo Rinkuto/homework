@@ -1,5 +1,6 @@
 <%@ page import="java.nio.charset.StandardCharsets" %>
-<%@ page import="java.io.*" %><%--
+<%@ page import="java.io.*" %>
+<%@ page import="java.net.URLEncoder" %><%--
   Created by IntelliJ IDEA.
   User: Yuri
   Date: 2022/4/27
@@ -12,7 +13,7 @@
 <head>
     <title>查看</title>
     <style>
-        img{
+        img {
             object-fit: cover;
             display: block;
             height: 100%;
@@ -49,26 +50,31 @@
 
 <body>
 <%
-    String name = request.getParameter("name"),str;
+    String name = request.getParameter("name"), str;
     String path = request.getServletContext().getRealPath("download") + "\\" + name;
     String suffix = name.substring(name.lastIndexOf("."));
+    name = URLEncoder.encode(name, StandardCharsets.UTF_8);
     if (suffix.equals(".txt") || suffix.equals(".cpp")) {
         FileInputStream in = new FileInputStream(new File(path));
         InputStreamReader read = new InputStreamReader(in, StandardCharsets.UTF_8);
         BufferedReader bin = new BufferedReader(read);
-        %> <div class="box">
-                <div class="article"><%
-        while ((str = bin.readLine()) != null){%>
-                    <p><%=str%></p>
+%>
+<div class="box">
+    <div class="article"><%
+        while ((str = bin.readLine()) != null) {%>
+        <p><%=str%>
+        </p>
         <% } %>
-                </div>
-        </div> <%
+    </div>
+</div>
+<%
     bin.close();
-    } else if (suffix.equals(".jpg") || suffix.equals(".png") || suffix.equals(".jpeg") || suffix.equals(".jfif") || suffix.equals(".pdf")) { %>
-        <img src="download/<%=name%>" alt="">
-    <% } else {
+} else if (suffix.equals(".jpg") || suffix.equals(".png") || suffix.equals(".jpeg") || suffix.equals(".jfif") || suffix.equals(".webp")) {
+    response.sendRedirect("download/" + name); %>
+<%--<img src="download/<%=name%>" alt="">--%>
+<% } else {
     request.setAttribute("message", "不允许查看" + suffix + "文件");
     request.getServletContext().getRequestDispatcher("/message.jsp").forward(request, response);
-    }%>
+}%>
 </body>
 </html>

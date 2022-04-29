@@ -1,4 +1,6 @@
 <%@ page import="java.io.*" %>
+<%@ page import="com.example.io.FileSort" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -14,20 +16,17 @@
     response.setDateHeader("Expires", 0);
 
     String path = request.getServletContext().getRealPath("download");
-    File f = new File(path);
-    File[] listFiles = new File(path).listFiles();
+    new File(path).mkdir();
+    ArrayList<String> names = new FileSort().getFilePathName(request);
 
-    f.mkdir();
-
-    assert listFiles != null;
-    if(listFiles.length == 0){ %>
+    if(names.isEmpty()){ %>
         <p style="text-align: center">文件夹为空</p>
     <% } else {
-        for(int i = 0;i< listFiles.length;i++){ %>
-            <p style="text-align: center"><%=i+1%> <%=listFiles[i].getName()%>
-                <a href="view.jsp?name=<%=listFiles[i].getName()%>">查看</a>
-                <a href="delete.jsp?name=<%=listFiles[i].getName()%>">删除</a>
-                <a href="download.jsp?name=<%=listFiles[i].getName()%>">下载</a>
+        for(int i = 0; i < names.size(); i++){ %>
+            <p style="text-align: center"><%=i + 1%> <%=names.get(i)%>
+                <a href="view.jsp?name=<%=names.get(i)%>">查看</a>
+                <a href="delete.jsp?name=<%=names.get(i)%>">删除</a>
+                <a href="download.jsp?name=<%=names.get(i)%>">下载</a>
             </p>
     <% }
     }
