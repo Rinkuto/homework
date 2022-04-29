@@ -12,6 +12,7 @@
 </head>
 <body>
 <%
+
     String path = request.getServletContext().getRealPath("download") + "\\" + request.getParameter("name");
     File file = new File(path);
     if (file.delete()) {

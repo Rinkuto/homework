@@ -8,6 +8,7 @@
 <body>
 <h1 style="text-align: center">文件列表</h1>
 <%
+
     response.setHeader("Pragma","No-cache");
     response.setHeader("Cache-Control","no-cache");
     response.setDateHeader("Expires", 0);
