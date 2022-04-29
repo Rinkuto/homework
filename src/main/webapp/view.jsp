@@ -1,6 +1,5 @@
-<%@ page import="java.io.BufferedReader" %>
-<%@ page import="java.io.FileReader" %>
-<%@ page import="java.nio.charset.StandardCharsets" %><%--
+<%@ page import="java.nio.charset.StandardCharsets" %>
+<%@ page import="java.io.*" %><%--
   Created by IntelliJ IDEA.
   User: Yuri
   Date: 2022/4/27
@@ -50,25 +49,22 @@
 
 <body>
 <%
-
-
-
     String name = request.getParameter("name"),str;
     String path = request.getServletContext().getRealPath("download") + "\\" + name;
     String suffix = name.substring(name.lastIndexOf("."));
-    if (suffix.equals(".txt") || suffix.equals(".cpp")) {
-        BufferedReader fin = new BufferedReader(new FileReader(path));
+    if (suffix.equals(".txt") || suffix.equals(".cpp") || suffix.equals(".epub")) {
+        FileInputStream in = new FileInputStream(new File(path));
+        InputStreamReader read = new InputStreamReader(in, StandardCharsets.UTF_8);
+        BufferedReader bin = new BufferedReader(read);
         %> <div class="box">
                 <div class="article"><%
-        while ((str = fin.readLine()) != null){
-            String s = new String(str.getBytes(),StandardCharsets.UTF_8);%>
-                        <p><%="    "%><%=s%></p>
+        while ((str = bin.readLine()) != null){%>
+                    <p><%=str%></p>
         <% } %>
                 </div>
         </div> <%
-    fin.close();
-
-    } else if (suffix.equals(".jpg") || suffix.equals(".png") || suffix.equals(".jpeg") || suffix.equals(".jfif")) { %>
+    bin.close();
+    } else if (suffix.equals(".jpg") || suffix.equals(".png") || suffix.equals(".jpeg") || suffix.equals(".jfif") || suffix.equals(".pdf")) { %>
         <img src="download/<%=name%>" alt="">
     <% } else {
     request.setAttribute("message", "查看失败");

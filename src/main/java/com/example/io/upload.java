@@ -24,12 +24,18 @@ public class upload extends HttpServlet {
         String path = req.getServletContext().getRealPath("download");
         MultipartRequest mr = new MultipartRequest(req, path, MAX_FILE_SIZE, "UTF-8");
         Enumeration files = mr.getFileNames();
+        // 获取文件名字
+//        String name = mr.getFile(files.nextElement().toString()).getName();
+
         String fileName;
         while (files.hasMoreElements()) {
             fileName = (String) files.nextElement();
             File f = mr.getFile(fileName);
+            System.out.println(f);
             if (null == f) {
                 req.setAttribute("message", "文件不存在");
+                getServletContext().getRequestDispatcher("/message.jsp").forward(req, resp);
+                return;
             } else {
                 req.setAttribute("message", "文件上传成功!");
             }
